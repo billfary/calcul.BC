@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#071A35">
+<title>Calcul BC</title>
+<style>
+:root{--navy:#071a35;--navy2:#10294c;--red:#c8231a;--bg:#eef2f6;--card:#fff;--muted:#67758a;--line:#d8e0e9;--green:#55ad2a;--blue:#1d63d5;--orange:#e78b18;--shadow:0 14px 34px rgba(7,26,53,.15)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;min-height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--navy)}body{display:flex;justify-content:center}.app{width:100%;max-width:430px;min-height:100dvh;padding:max(16px,env(safe-area-inset-top)) 16px max(18px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:14px}
+.header{display:flex;align-items:center;justify-content:space-between;padding:0 2px}.brand{font-weight:950;font-size:18px;letter-spacing:.4px}.hint{font-size:12px;font-weight:800;color:var(--muted)}
+.hero{position:relative;background:linear-gradient(145deg,#c8251b,#9e120d);color:#fff;border-radius:28px;padding:20px;box-shadow:var(--shadow);overflow:hidden}.hero:after{content:"";position:absolute;width:170px;height:170px;border-radius:50%;background:rgba(255,255,255,.07);right:-70px;bottom:-100px}.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.hero-title{font-size:20px;font-weight:950;letter-spacing:.7px}.delta{min-width:92px;text-align:right;font-weight:950;color:#fff}.delta-pct{font-size:24px;line-height:1}.delta-kg{font-size:20px;line-height:1;margin-top:8px;opacity:.95}.bc-row{display:flex;align-items:baseline;justify-content:center;margin:20px 0 10px}.bc-value{font-size:62px;line-height:.9;font-weight:950;letter-spacing:-2px}.bc-unit{font-size:22px;font-weight:900;margin-left:8px}.per-case{text-align:center;font-size:18px;font-weight:850}.per-case strong{font-size:24px}.hero-empty .bc-value,.hero-empty .bc-unit,.hero-empty .per-case{opacity:.45}
+.inputs{display:grid;grid-template-columns:1fr 1fr;gap:12px}.input-card{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:13px 14px;box-shadow:0 6px 18px rgba(7,26,53,.06)}.input-card:focus-within{border-color:var(--navy);box-shadow:0 0 0 3px rgba(7,26,53,.1)}.input-card label{display:block;font-size:12px;font-weight:900;letter-spacing:.7px;color:var(--muted);margin-bottom:3px}.input-wrap{display:flex;align-items:baseline}.input-card input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--navy);font-size:34px;font-weight:950;padding:2px 0}.input-unit{font-size:15px;font-weight:900;color:var(--muted);margin-left:5px}
+.net-info{display:flex;align-items:center;justify-content:space-between;min-height:48px;padding:10px 14px;background:#e6edf5;border-radius:16px;font-size:13px;font-weight:800;color:var(--muted)}.net-info strong{color:var(--navy);font-size:15px;text-align:right}.net-info.tare-none{background:#e6edf5}.net-info.tare-pallet{background:#e4f5dc;color:#3f7f23}.net-info.tare-pallet strong{color:#2f7d17}.net-info.tare-plastic{background:#e0ebff;color:#1d55ad}.net-info.tare-plastic strong{color:#1558c8}.net-info.tare-wood{background:#fff0d8;color:#a55d00}.net-info.tare-wood strong{color:#c66c00}.net-info.error{background:#ffe5e1;color:#a71811}.net-info.error strong{color:#a71811}
+.spacer{display:none}.selector{background:var(--card);border-radius:22px;padding:12px 13px;box-shadow:0 7px 20px rgba(7,26,53,.08)}.selector-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:9px}.selector-title{font-size:15px;font-weight:950}.selector-sub{font-size:11px;font-weight:750;color:var(--muted)}.tare-live{font-size:18px;font-weight:950;text-align:right;min-width:80px}.tare-live.tare-none{color:var(--red)}.tare-live.tare-pallet{color:var(--green)}.tare-live.tare-plastic{color:var(--blue)}.tare-live.tare-wood{color:var(--orange)}.options{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.option{border:0;background:#f0f3f7;border-radius:20px;min-height:72px;padding:8px 4px;color:#fff;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;position:relative;cursor:pointer}.option:active{transform:scale(.96)}.option.selected{outline:4px solid var(--navy);outline-offset:2px}.option.none{background:var(--red)}.option.pallet{background:var(--green)}.option.plastic{background:var(--blue)}.option.wood{background:var(--orange)}.icon{font-size:25px;line-height:1}.option-name{font-size:10px;line-height:1.05;text-align:center}.option-weight{font-size:13px}.forbidden{width:30px;height:30px;border:4px solid #fff;border-radius:50%;position:relative}.forbidden:after{content:"";position:absolute;width:27px;height:4px;background:#fff;border-radius:3px;left:-2px;top:9px;transform:rotate(-45deg)}
+@media(max-width:365px){.app{padding-left:10px;padding-right:10px}.bc-value{font-size:54px}.delta-pct{font-size:21px}.delta-kg{font-size:18px}.option{min-height:79px}.inputs{gap:8px}.input-card input{font-size:30px}}
+</style>
+</head>
+<body>
+<main class="app"><div id="netInfo" style="display:none"></div>
+    <section id="hero" class="hero hero-empty" aria-live="polite">
+    <div class="hero-top">
+      <div class="hero-title">CALCUL BC</div>
+      <div class="delta"><div id="deltaPct" class="delta-pct">—</div><div id="deltaKg" class="delta-kg">—</div></div>
+    </div>
+    <div class="bc-row"><span id="bcValue" class="bc-value">—</span><span class="bc-unit">kg</span></div>
+    <div class="per-case"><strong id="caseWeight">—</strong> kg / caisse</div>
+  </section>
+
+  <section class="selector compact">
+    <div class="selector-head"><div class="selector-title">Inclus dans la pesée</div><div id="tareDisplay" class="selector-sub tare-live tare-none">0 kg</div></div>
+    <div class="options">
+      <button class="option wood" data-weight="75" data-name="Tote en bois" data-class="tare-wood"><span class="icon">▦</span><span class="option-name">TOTE<br>BOIS</span><span class="option-weight">75 kg</span></button>
+      <button class="option plastic" data-weight="50" data-name="Tote en plastique" data-class="tare-plastic"><span class="icon">▣</span><span class="option-name">TOTE<br>PLASTIQUE</span><span class="option-weight">50 kg</span></button>
+      <button class="option pallet" data-weight="30" data-name="Palette en bois" data-class="tare-pallet"><span class="icon">▤</span><span class="option-name">PALETTE</span><span class="option-weight">30 kg</span></button>
+      <button class="option none selected" data-weight="0" data-name="Rien" data-class="tare-none" aria-label="Rien à soustraire"><span class="forbidden"></span><span class="option-name">RIEN</span><span class="option-weight">0 kg</span></button>
+    </div>
+  </section>
+
+  <section class="inputs">
+    <div class="input-card"><label for="cases">NB CAISSES</label><div class="input-wrap"><input id="cases" type="number" inputmode="numeric" min="1" max="250" placeholder="0"><span class="input-unit">ca</span></div></div>
+    <div class="input-card"><label for="weight">POIDS PESÉ</label><div class="input-wrap"><input id="weight" type="number" inputmode="decimal" min="0" max="1600" placeholder="0"><span class="input-unit">kg</span></div></div>
+  </section>
+</main>
+<script>
+const $=id=>document.getElementById(id);const casesEl=$('cases'),weightEl=$('weight'),hero=$('hero'),bcValue=$('bcValue'),caseWeight=$('caseWeight'),deltaPct=$('deltaPct'),deltaKg=$('deltaKg'),netInfo=$('netInfo'),tareDisplay=$('tareDisplay');let tare=0,tareName='Rien',tareClass='tare-none';
+function exactAt(w,n,d){return (w*(10**d))%n===0}
+function solve(net,n){const limit=net*.05;const low=Math.max(1,Math.ceil(net-limit));const high=Math.floor(net+limit);const groups=[[],[],[]];for(let w=low;w<=high;w++){const d=exactAt(w,n,0)?0:exactAt(w,n,1)?1:2;groups[d].push({w,d,diff:Math.abs(w-net)})}const pool=groups[0].length?groups[0]:groups[1].length?groups[1]:groups[2];pool.sort((a,b)=>a.diff-b.diff||a.w-b.w);return pool[0]||null}
+function fmt(v,d){return v.toLocaleString('fr-CA',{minimumFractionDigits:d,maximumFractionDigits:d})}
+function updateNetDisplay(gross){tareDisplay.className='selector-sub tare-live '+tareClass;if(Number.isFinite(gross)&&gross>0&&gross-tare>0){tareDisplay.textContent=fmt(gross-tare,1)+' kg'}else{tareDisplay.textContent='— kg'}}
+function clear(message='Entrez les données',error=false){updateNetDisplay(Number.parseFloat(weightEl.value));hero.classList.add('hero-empty');bcValue.textContent='—';caseWeight.textContent='—';deltaPct.textContent='—';deltaKg.textContent='—';netInfo.className='net-info '+tareClass+(error?' error':'');netInfo.innerHTML=`<span>Poids net de départ</span><strong>${message}</strong>`}
+function calculate(){const n=parseInt(casesEl.value,10),gross=parseFloat(weightEl.value);if(!Number.isFinite(n)||n<1||!Number.isFinite(gross)||gross<=0){clear();return}const net=gross-tare;updateNetDisplay(gross);if(net<=0){clear('Poids insuffisant',true);return}const r=solve(net,n);if(!r){clear('Aucun résultat dans ±5 %',true);return}const difference=r.w-net;const signedPct=difference/net*100;hero.classList.remove('hero-empty');netInfo.classList.remove('error');bcValue.textContent=r.w;caseWeight.textContent=fmt(r.w/n,r.d);deltaPct.textContent=(signedPct>=0?'+':'−')+fmt(Math.abs(signedPct),1)+' %';deltaKg.textContent=(difference>=0?'+':'−')+Math.round(Math.abs(difference))+' kg';netInfo.innerHTML=`<span>Net réel après ${tareName.toLowerCase()}</span><strong>${fmt(net,1)} kg</strong>`}
+document.querySelectorAll('.option').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.option').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');tare=Number(btn.dataset.weight);tareName=btn.dataset.name;tareClass=btn.dataset.class;tareDisplay.className='selector-sub tare-live '+tareClass;calculate()}));casesEl.addEventListener('input',calculate);weightEl.addEventListener('input',calculate);
+</script>
+</body>
+</html>
